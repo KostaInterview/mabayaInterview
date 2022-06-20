@@ -92,9 +92,9 @@ public class PromoteServiceImpl implements PromoteService {
 	public ProductResponceDto serveAd(String category) {
 
 		List<Object[]> productDetails = productRepository.findProductWithGreatestBid(category);
-		if(productDetails == null) {
+		if(productDetails == null || productDetails.isEmpty()) {
 			productDetails = productRepository.findProductWithGreatestBidOutOfDate(category);
-			if(productDetails == null) {
+			if(productDetails == null || productDetails.isEmpty()) {
 			logger.info(category + " category does not exists in DB");
 			throw new NoSuchCategoryException(category);
 			}
